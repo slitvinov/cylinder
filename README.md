@@ -26,6 +26,7 @@ $ mpiexec ./a.out -v -i -r 2000 -l 7 -m 10 -p 100 -e 10
 </pre>
 
 <pre>
+$ ./cylinder -h
 Usage: cylinder [-h] [-i] [-v] -r <Reynolds number> -l <resolution level> -p <dump period> -e <end time>
 Options:
   -h     Display this help message
@@ -34,7 +35,6 @@ Options:
   -r <Reynolds number>     the Reynolds number (a decimal number)
   -l <num>    Minimum resolution level (positive integer)
   -m <num>    Maximum resolution level (positive integer)
-  -o <preifx>              a prefix for the output files
   -p <dump period>         the dump period (positive integer)
   -e <end time>            end time of the simulation (decimal number)
 
