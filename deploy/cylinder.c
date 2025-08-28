@@ -68933,15 +68933,16 @@ val(muv.y,0,0,0) = _const_fm.y * diameter / reynolds;}
 } }{end_tracing("properties_0","cylinder.c",155);return 0;}end_tracing("properties_0","cylinder.c",155);}
 
 static int init_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=(t = 0)!=0;*ip=i;*tp=t;return ret;}      static int init_0(const int i,const double t,Event *_ev){tracing("init_0","cylinder.c",157); {
-  scalar  phi=new_vertex_scalar("phi");
   
   
-  
+#line 369 "/home/lisergey/basilisk/src/fractions.h"
+{
+    scalar  phi=new_vertex_scalar("phi");    
 #line 314 "/home/lisergey/basilisk/src/grid/stencils.h"
 {
     static int _first = 1.;
     ForeachData _loop = {
-      .fname = "cylinder.c", .line = 159, .first = _first
+      .fname = "/home/lisergey/basilisk/src/fractions.h", .line = 371, .first = _first
     };
     if (baseblock) for (scalar s = baseblock[0], * i = baseblock; s.i >= 0; i++, s = *i) {
  _attribute[s.i].input = _attribute[s.i].output = _attribute[s.i].nowarning = false;
@@ -68951,16 +68952,10 @@ static int init_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;in
     Point point = {0}; NOT_UNUSED (point); 
 #line 335
 {
-    _loop.vertex = true; 
-#line 159 "cylinder.c"
-{ 
-     
-       
-                 
-                                   
-    _stencil_val_a(phi,0,0,0);  
-  }
-  
+    _loop.vertex = true;
+      
+#line 372 "/home/lisergey/basilisk/src/fractions.h"
+{_stencil_val_a(phi,0,0,0);                                                   }  
 #line 338 "/home/lisergey/basilisk/src/grid/stencils.h"
 }    
 #line 328
@@ -69020,8 +69015,8 @@ check_stencil (&_loop);
 {
     int ig = -1; NOT_UNUSED (ig);
 
-    int jg = -1; NOT_UNUSED (jg); 
-#line 159 "cylinder.c"
+    int jg = -1; NOT_UNUSED (jg);      
+#line 372 "/home/lisergey/basilisk/src/fractions.h"
 {  
 #line 3 "/home/lisergey/basilisk/src/grid/variables.h"
 double Delta = L0*(1./(1 << point.level));
@@ -69077,14 +69072,12 @@ int level = point.level; NOT_UNUSED(level);
   parent.i = (point.i + 2)/2;
 
   parent.j = (point.j + 2)/2;
-#line 159 "cylinder.c"
-{
-    double p0;
-    p0 = 0.5 - y;
-    p0 = ( p0 < (0.5 + y) ? p0 : (0.5 + y));
-    p0 = ( p0 < (( x*x) + ( y*y) - ( (diameter / 2)*(diameter / 2))) ? p0 : (( x*x) + ( y*y) - ( (diameter / 2)*(diameter / 2))));
-    val(phi,0,0,0) = p0;
-  }}
+#line 372 "/home/lisergey/basilisk/src/fractions.h"
+val(phi,0,0,0) = (
+#line 158 "cylinder.c"
+( (( (0.5 - y) < (0.5 + y) ? (0.5 - y) : (0.5 + y))) < (sqrt(( x*x) + ( y*y)) - diameter/2.) ? (( (0.5 - y) < (0.5 + y) ? (0.5 - y) : (0.5 + y))) : (sqrt(( x*x) + ( y*y)) - diameter/2.))
+#line 372 "/home/lisergey/basilisk/src/fractions.h"
+);}
   
 #line 1719 "/home/lisergey/basilisk/src/grid/tree.h"
 }      
@@ -69094,32 +69087,28 @@ int level = point.level; NOT_UNUSED(level);
 }
 
 #line 1720
-}  
-#line 166 "cylinder.c"
-fractions(phi, cs, fs
-#line 122 "/home/lisergey/basilisk/src/fractions.h"
+}    
+#line 373 "/home/lisergey/basilisk/src/fractions.h"
+fractions (phi, cs, fs
+#line 122
 , 0.
-#line 166 "cylinder.c"
-);
-  
-  
+#line 373
+);delete((scalar*)((scalar[]){phi,{-1}}));
+  }  
 #line 314 "/home/lisergey/basilisk/src/grid/stencils.h"
 {
     static int _first = 1.;
     ForeachData _loop = {
-      .fname = "cylinder.c", .line = 167, .first = _first
+      .fname = "cylinder.c", .line = 160, .first = _first
     };
     if (baseblock) for (scalar s = baseblock[0], * i = baseblock; s.i >= 0; i++, s = *i) {
  _attribute[s.i].input = _attribute[s.i].output = _attribute[s.i].nowarning = false;
  _attribute[s.i].width = 0;
       }
     int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
-    Point point = {0}; NOT_UNUSED (point); 
-#line 167 "cylinder.c"
-{
-    _stencil_val_a(u.x,0,0,0);  
-    _stencil_val_a(u.y,0,0,0);  
-  }
+    Point point = {0}; NOT_UNUSED (point);    
+#line 161 "cylinder.c"
+{ _stencil_val(cs,0,0,0);_stencil_val_a(u.x,0,0,0);     }
 
     
 #line 328 "/home/lisergey/basilisk/src/grid/stencils.h"
@@ -69173,8 +69162,8 @@ check_stencil (&_loop);
 #line 686
 ((Tree *)grid)->leaves
 #line 445
-).p[_k].flags; 
-#line 167 "cylinder.c"
+).p[_k].flags;    
+#line 161 "cylinder.c"
 {  
 #line 3 "/home/lisergey/basilisk/src/grid/variables.h"
 double Delta = L0*(1./(1 << point.level));
@@ -69230,11 +69219,8 @@ int level = point.level; NOT_UNUSED(level);
   parent.i = (point.i + 2)/2;
 
   parent.j = (point.j + 2)/2;
-#line 167 "cylinder.c"
-{
-    val(u.x,0,0,0) = 0;
-    val(u.y,0,0,0) = 0;
-  }}
+#line 161 "cylinder.c"
+val(u.x,0,0,0) = val(cs,0,0,0) ? 1 : 0;}
       
 #line 447 "/home/lisergey/basilisk/src/grid/tree.h"
 }
@@ -69243,11 +69229,10 @@ int level = point.level; NOT_UNUSED(level);
 
 #line 688
 }
-#line 170 "cylinder.c"
-delete((scalar*)((scalar[]){phi,{-1}}));
-}{end_tracing("init_0","cylinder.c",171);return 0;}end_tracing("init_0","cylinder.c",171);}
+#line 162 "cylinder.c"
+}{end_tracing("init_0","cylinder.c",162);return 0;}end_tracing("init_0","cylinder.c",162);}
 
-static int dump_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=( t <= tend)!=0;*ip=i;*tp=t;return ret;}static int dump_0_expr1(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=(i++)!=0;*ip=i;*tp=t;return ret;}      static int dump_0(const int i,const double t,Event *_ev){tracing("dump_0","cylinder.c",173); {
+static int dump_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=( t <= tend)!=0;*ip=i;*tp=t;return ret;}static int dump_0_expr1(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=(i++)!=0;*ip=i;*tp=t;return ret;}      static int dump_0(const int i,const double t,Event *_ev){tracing("dump_0","cylinder.c",164); {
   char path[FILENAME_MAX];
   scalar  omega=new_scalar("omega"),  m=new_scalar("m");
   FILE *fp;
@@ -69259,7 +69244,7 @@ static int dump_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;in
       fields_stats( 
 #line 380 "/home/lisergey/basilisk/src/utils.h"
 all
-#line 182 "cylinder.c"
+#line 173 "cylinder.c"
 );
       if (pid() == 0)
         fprintf(ferr, "cylinder: %d: %09d %.16e\n", npe(), i, t);
@@ -69272,7 +69257,7 @@ all
 {
     static int _first = 1.;
     ForeachData _loop = {
-      .fname = "cylinder.c", .line = 188, .first = _first
+      .fname = "cylinder.c", .line = 179, .first = _first
     };
     if (baseblock) for (scalar s = baseblock[0], * i = baseblock; s.i >= 0; i++, s = *i) {
  _attribute[s.i].input = _attribute[s.i].output = _attribute[s.i].nowarning = false;
@@ -69280,7 +69265,7 @@ all
       }
     int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
     Point point = {0}; NOT_UNUSED (point);        
-#line 189 "cylinder.c"
+#line 180 "cylinder.c"
 { _stencil_val(cs,0,0,0);_stencil_val_a(m,0,0,0);   }
 
     
@@ -69336,7 +69321,7 @@ check_stencil (&_loop);
 ((Tree *)grid)->leaves
 #line 445
 ).p[_k].flags;        
-#line 189 "cylinder.c"
+#line 180 "cylinder.c"
 {  
 #line 3 "/home/lisergey/basilisk/src/grid/variables.h"
 double Delta = L0*(1./(1 << point.level));
@@ -69392,7 +69377,7 @@ int level = point.level; NOT_UNUSED(level);
   parent.i = (point.i + 2)/2;
 
   parent.j = (point.j + 2)/2;
-#line 189 "cylinder.c"
+#line 180 "cylinder.c"
 val(m,0,0,0) = val(cs,0,0,0) - 0.5;}
       
 #line 447 "/home/lisergey/basilisk/src/grid/tree.h"
@@ -69402,26 +69387,26 @@ val(m,0,0,0) = val(cs,0,0,0) - 0.5;}
 
 #line 688
 }      
-#line 190 "cylinder.c"
+#line 181 "cylinder.c"
 sprintf(path, "%09d.png", i);
       output_ppm(omega
 #line 594 "/home/lisergey/basilisk/src/output.h"
 , 
 fout
-#line 191 "cylinder.c"
+#line 182 "cylinder.c"
 , 2048, path
 , -2 / diameter
 , 2 / diameter
 #line 598 "/home/lisergey/basilisk/src/output.h"
 , 5, 
 0
-#line 193 "cylinder.c"
+#line 184 "cylinder.c"
 , false
-#line 192
+#line 183
 ,
 #line 601 "/home/lisergey/basilisk/src/output.h"
 (   coord[2]) 
-#line 192 "cylinder.c"
+#line 183 "cylinder.c"
 {{-0.5, -0.5}, {L0 - 0.5, 0.5}}
 , m
 #line 602 "/home/lisergey/basilisk/src/output.h"
@@ -69430,28 +69415,28 @@ jet,
 NULL, 
 0, 
 NULL
-#line 193 "cylinder.c"
+#line 184 "cylinder.c"
 );
     }
   }delete((scalar*)((scalar[]){m,omega,{-1}}));
-}{end_tracing("dump_0","cylinder.c",196);return 0;}end_tracing("dump_0","cylinder.c",196);}
-static int adapt_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=(i++)!=0;*ip=i;*tp=t;return ret;}      static int adapt_0(const int i,const double t,Event *_ev){tracing("adapt_0","cylinder.c",197); {
+}{end_tracing("dump_0","cylinder.c",187);return 0;}end_tracing("dump_0","cylinder.c",187);}
+static int adapt_0_expr0(int *ip,double *tp,Event *_ev){int i=*ip;double t=*tp;int ret=(i++)!=0;*ip=i;*tp=t;return ret;}      static int adapt_0(const int i,const double t,Event *_ev){tracing("adapt_0","cylinder.c",188); {
   adapt_wavelet(
-#line 198 "/home/lisergey/basilisk/src/grid/tree-common.h"
+#line 189 "/home/lisergey/basilisk/src/grid/tree-common.h"
 (
 #line 173
 scalar *
-#line 198
+#line 189
 )
-#line 198 "cylinder.c"
+#line 189 "cylinder.c"
 ((scalar[]){cs, u.x, u.y,{-1}}), (double[]){1e-2, 3e-3, 3e-3}, maxlevel
 , minlevel
 #line 176 "/home/lisergey/basilisk/src/grid/tree-common.h"
 , 
 all
-#line 199 "cylinder.c"
+#line 190 "cylinder.c"
 );
-}{end_tracing("adapt_0","cylinder.c",200);return 0;}end_tracing("adapt_0","cylinder.c",200);}
+}{end_tracing("adapt_0","cylinder.c",191);return 0;}end_tracing("adapt_0","cylinder.c",191);}
 #line 2 "ast/init_solver.h"
 
 static void _init_solver (void)
@@ -69492,8 +69477,13 @@ event_register((Event){0,1,default_display,{default_display_expr0},((int *)0),((
 event_register((Event){0,1,init,{init_expr0},((int *)0),((double *)0),"/home/lisergey/basilisk/src/navier-stokes/centered.h",203,"init"});  
 #line 157 "cylinder.c"
 event_register((Event){0,1,init_0,{init_0_expr0},((int *)0),((double *)0),"cylinder.c",157,"init"});  
-#line 173
-event_register((Event){0,2,dump_0,{dump_0_expr0,dump_0_expr1},((int *)0),((double *)0),"cylinder.c",173,"dump"});
+
+
+
+
+
+
+event_register((Event){0,2,dump_0,{dump_0_expr0,dump_0_expr1},((int *)0),((double *)0),"cylinder.c",164,"dump"});
 	
 	
 	
@@ -69561,8 +69551,8 @@ event_register((Event){0,1,end_timestep,{end_timestep_expr0},((int *)0),((double
 event_register((Event){0,1,adapt,{adapt_expr0},((int *)0),((double *)0),"/home/lisergey/basilisk/src/navier-stokes/centered.h",453,"adapt"});  
 #line 155 "cylinder.c"
 event_register((Event){0,1,properties_0,{properties_0_expr0},((int *)0),((double *)0),"cylinder.c",155,"properties"});  
-#line 197
-event_register((Event){0,1,adapt_0,{adapt_0_expr0},((int *)0),((double *)0),"cylinder.c",197,"adapt"});  
+#line 188
+event_register((Event){0,1,adapt_0,{adapt_0_expr0},((int *)0),((double *)0),"cylinder.c",188,"adapt"});  
 #line 24 "ast/init_solver.h"
 }
   set_fpe();

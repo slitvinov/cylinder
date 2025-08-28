@@ -155,19 +155,10 @@ int main(int argc, char **argv) {
 event properties(i++) { foreach_face() muv.x[] = fm.x[] * diameter / reynolds; }
 
 event init(t = 0) {
-  vertex scalar phi[];
-  foreach_vertex() {
-    double p0;
-    p0 = 0.5 - y;
-    p0 = min(p0, 0.5 + y);
-    p0 = min(p0, sq(x) + sq(y) - sq(diameter / 2));
-    phi[] = p0;
-  }
-  fractions(phi, cs, fs);
-  foreach () {
-    u.x[] = 0;
-    u.y[] = 0;
-  }
+  solid (cs, fs, intersection (intersection (0.5 - y, 0.5 + y),
+			       sqrt(sq(x) + sq(y)) - diameter/2.));  
+  foreach ()
+    u.x[] = cs[] ? 1 : 0;
 }
 
 event dump(i++; t <= tend) {
