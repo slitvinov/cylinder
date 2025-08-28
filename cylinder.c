@@ -16,7 +16,7 @@ pf[right] = dirichlet(0);
 u.n[embed] = fabs(y) > 0.45 ? neumann(0) : dirichlet(0);
 u.t[embed] = fabs(y) > 0.45 ? neumann(0) : dirichlet(0);
 static face vector muv[];
-static scalar phi[];
+static scalar phi[], omega[], m[];
 int main(int argc, char **argv) {
   char *end;
   int MaxLevelFlag, MinLevelFlag, PeriodFlag, ReynoldsFlag, TendFlag;
@@ -170,13 +170,14 @@ event init(t = 0) {
     if (s.nf == 0)
       break;
   }
-  foreach ()
+  foreach () {
     u.x[] = cs[] ? 1 : 0;
+    u.y[] = 0;
+  }
 }
 
 event dump(i++; t <= tend) {
   char path[FILENAME_MAX];
-  scalar omega[], m[];
   FILE *fp;
   long nx, ny;
   coord n, b;
