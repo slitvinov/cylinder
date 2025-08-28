@@ -1,0 +1,14 @@
+.POSIX:
+.SUFFIXES:
+.SUFFIXES: .c
+
+CFLAGS = -O2 -g
+QCC = qcc
+MPICC = mpicc
+cylinder: _cylinder.c; $(MPICC) -o cylinder $(CFLAGS)  _cylinder.c -lm
+_cylinder.c: cylinder.c; CC99=$(MPICC) $(QCC) -disable-dimensions -source $(QCCFLAGS) -D_MPI=1 cylinder.c
+deploy/cylinder.c: _cylinder.c
+	mv _cylinder.c deploy/cylinder.c
+dep: deploy/cylinder.c
+clean:
+	rm -f _cylinder.c cylinder
