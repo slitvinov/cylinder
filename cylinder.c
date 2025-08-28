@@ -6,7 +6,7 @@
 #include "navier-stokes/centered.h"
 static const double diameter = 0.125;
 static double reynolds, tend;
-static int maxlevel, minlevel, period, Image, Surface, Verbose;
+static int maxlevel, minlevel, period, Image, Verbose;
 u.n[left] = dirichlet(1);
 p[left] = neumann(0);
 pf[left] = neumann(0);
@@ -15,7 +15,8 @@ p[right] = dirichlet(0);
 pf[right] = dirichlet(0);
 u.n[embed] = fabs(y) > 0.45 ? neumann(0) : dirichlet(0);
 u.t[embed] = fabs(y) > 0.45 ? neumann(0) : dirichlet(0);
-face vector muv[];
+static face vector muv[];
+static scalar phi[];
 int main(int argc, char **argv) {
   char *end;
   int MaxLevelFlag, MinLevelFlag, PeriodFlag, ReynoldsFlag, TendFlag;
@@ -154,8 +155,20 @@ int main(int argc, char **argv) {
 event properties(i++) { foreach_face() muv.x[] = fm.x[] * diameter / reynolds; }
 
 event init(t = 0) {
-  solid (cs, fs, intersection (intersection (0.5 - y, 0.5 + y),
-			       sqrt(sq(x) + sq(y)) - diameter/2.));  
+  for (;;) {
+    foreach_vertex() {
+      double p0;
+      p0 = 0.5 - y;
+      p0 = min(p0, 0.5 + y);
+      p0 = min(p0, sq(x) + sq(y) - sq(diameter / 2));
+      phi[] = p0;
+    }
+    fractions(phi, cs, fs);    
+    astats s = adapt_wavelet({cs}, (double[]){0}, maxlevel = maxlevel,
+                             minlevel = minlevel);
+    if (s.nf == 0)
+      break;
+  }
   foreach ()
     u.x[] = cs[] ? 1 : 0;
 }
