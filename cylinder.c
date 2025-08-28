@@ -178,10 +178,6 @@ event init(t = 0) {
 
 event dump(i++; t <= tend) {
   char path[FILENAME_MAX];
-  FILE *fp;
-  long nx, ny;
-  coord n, b;
-
   if (i % period == 0) {
     if (Verbose) {
       fields_stats();
