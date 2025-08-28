@@ -9,6 +9,7 @@ $ tar zxf basilisk.tar.gz
 $ cd basilisk/src
 $ cp config.gcc config
 $ make ast && make qcc
+$ mkdir -p "$HOME/.local/bin/"
 $ cp qcc "$HOME/.local/bin/"
 </pre>
 
