@@ -147,7 +147,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "cylinder: error: -e must be set\n");
     exit(1);
   }
-  L0 = 8;
+  L0 = 2;
   origin(-0.5, -L0 / 2.);
   mu = muv;
   run();
@@ -155,6 +155,7 @@ int main(int argc, char **argv) {
 event properties(i++) { foreach_face() muv.x[] = fm.x[] * diameter / reynolds; }
 
 event init(t = 0) {
+  init_grid(1 << minlevel);
   for (;;) {
     foreach_vertex() {
       double p0;
